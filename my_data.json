@@ -1,0 +1,64 @@
+{
+  "movies": [
+    {
+      "id": "1",
+      "title": "Kiki's Delivery Service",
+      "year": "1989",
+      "people": 2640000
+    },
+    {
+      "id": "2",
+      "title": "Spirited Away",
+      "year": "2001",
+      "people": 23500000
+    },
+    {
+      "id": "3",
+      "title": "Princess Mononoke",
+      "year": "1997",
+      "people": 14200000
+    },
+    {
+      "id": "4",
+      "title": "The Secret World of Arrietty",
+      "year": "1988",
+      "people": 800000
+    },
+    {
+      "id": "5",
+      "title": "My Neighbor Totoro",
+      "year": "1989",
+      "people": 3700000
+    },
+    {
+      "id": "6",
+      "title": "Nausica of the Valley of the Wind",
+      "year": "1984",
+      "people": 910000
+    },
+    {
+      "id": "7",
+      "title": "Ponyo",
+      "year": "2008",
+      "people": 1510000
+    },
+    {
+      "id": "8",
+      "title": "Howl's Moving Castle",
+      "year": "2004",
+      "people": 3020000
+    },
+    {
+      "id": "9",
+      "title": "The Boy and the Heron",
+      "year": "2023",
+      "people": 2010000
+    },
+    {
+      "id": "10",
+      "title": "Castle in the Sky",
+      "year": "1986",
+      "people": 775000
+    }
+  ]
+}

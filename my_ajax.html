@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>22300323 Jiwon Park</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <style>
+        #movie_list {
+            text-align: center;
+            display: none;
+            width: 100%;
+            margin: 30px 0px 0px 0px;
+            border: 1px solid;
+        }
+
+        th {
+            background-color: grey;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="text-align: right;  margin: 20px;">
+        ID <input type="number" id="id" />
+        제목 <input type="text" id="title" />
+        개봉년도 <input type="number" id="year" />
+        관객수 <input type="number" id="people" />
+        <button onclick="createMovies()">추가하기</button>
+        <br />
+        <br />
+        <button onclick="getMovies()">목록 보기</button>
+        <br />
+        <br />
+        수정할 ID <input type="text" id="ud_id" />
+        새제목 <input type="text" id="ud_title" />
+        새개봉년도 <input type="number" id="ud_year" />
+        새관객수 <input type="number" id="ud_people" />
+        <button onclick="updateMovies()">수정하기</button>
+        <br />
+        <br />
+        삭제할 ID <input type="number" id="d_id" />
+        <button onclick="deleteMovies()">삭제하기</button>
+    </div>
+    <table id="movie_list">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>제목</th>
+                <th>개봉년도</th>
+                <th>관객수</th>
+            </tr>
+        </thead>
+        <tbody id="movies">
+        </tbody>
+    </table>
+    </div>
+
+    <script>
+
+        function getMovies() {
+
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", "http://localhost:3000/movies");
+            xhr.setRequestHeader("content-type", "application/json");
+            xhr.send();
+            xhr.onload = () => {
+                if (xhr.status === 200) {
+                    $("#movies").html("");
+                    let movies = JSON.parse(xhr.response);
+
+                    if (movies.length > 0)
+                        $("#movie_list").show();
+                    else
+                        $("#movie_list").hide();
+
+                    movies.forEach((item) => {
+                        $("#movies").append(
+                            "<tr>" +
+                            "<td>" + item.id + "</td>" +
+                            "<td>" + item.title + "</td>" +
+                            "<td>" + item.year + "</td>" +
+                            "<td>" + item.people + "</td>" +
+                            "</tr>"
+                        );
+                    });
+                }
+            }
+        }
+
+        function createMovies() {
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "http://localhost:3000/movies");
+            xhr.setRequestHeader("content-type", "application/json;chatset=UTF-8");
+            let data = { id: $("#id").val(), title: $("#title").val(), year: $("#year").val(), people: $("#peole").val(), };
+            xhr.send(JSON.stringify(data));
+            xhr.onload = () => {
+                if (xhr.status === 201) {
+                    alert("새로운 영화가 등록되었습니다");
+                    getMovies();
+                    $("#id").val('');
+                    $("#title").val('');
+                    $("#year").val('');
+                    $("#people").val('');
+                }
+            }
+        }
+
+
+        function updateMovies() {
+            let id = $("#ud_id").val();
+            const xhr = new XMLHttpRequest();
+            xhr.open("PUT", "http://localhost:3000/movies/" + id);
+            xhr.setRequestHeader("content-type", "application/json;chatset=UTF-8");
+            let data = { id: $("#id").val(), title: $("#ud_title").val(), year: $("#ud_year").val(), people: $("#ud_people").val() };
+            xhr.send(JSON.stringify(data));
+            xhr.onload = () => {
+                if (xhr.status === 200) {
+                    alert(id + "번째 영화가 수정되었습니다");
+                    getMovies();
+                    $("#ud_id").val('');
+                    $("#ud_title").val('');
+                    $("#ud_year").val('');
+                    $("#ud_people").val('');
+                }
+            }
+        }
+
+        function deleteMovies() {
+            let id = $("#d_id").val();
+            const xhr = new XMLHttpRequest();
+            xhr.open("DELETE", "http://localhost:3000/movies/" + id);
+            xhr.setRequestHeader("content-type", "application/json");
+            xhr.send();
+            xhr.onload = () => {
+                if (xhr.status === 200) {
+                    alert(id + "번째 영화가 삭제되었습니다");
+                    getMovies();
+                    $("#d_id").val('');
+                }
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

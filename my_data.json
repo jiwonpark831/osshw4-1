@@ -59,6 +59,12 @@
       "title": "Castle in the Sky",
       "year": "1986",
       "people": 775000
+    },
+    {
+      "id": "11",
+      "title": "Edit Movie",
+      "year": "1101",
+      "people": "2024"
     }
   ]
 }
